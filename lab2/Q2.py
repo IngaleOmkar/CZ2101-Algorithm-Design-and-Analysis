@@ -1,4 +1,5 @@
 import time
+import random
 
 class Node():
     def __init__(self, index, weight):
@@ -95,9 +96,24 @@ def dijkstra(g, source_index):
     end = time.time()
     return d, end-start
 
-g = Graph(5)
+# Defines the number of "nodes" in the graph
+vertices = 100000
+# Defines the number of "connections" in the graph
+edges = 1000000
+# Creates the graph
+g = Graph(vertices)
+# Creates a new dictionary to ensure no same edge with different weights 
+added = {i:[] for i in range(vertices)}
+# Populates the graph with randomly generated connections
+for i in range(edges):
+    start_edge = random.randint(0,vertices-1)
+    end_edge = random.randint(0,vertices-1)
+    weight = random.randint(0,50)
+    if((start_edge != end_edge) and (end_edge not in added[start_edge])):
+        added[start_edge].append(end_edge)
+        g.addEdge(start_edge, end_edge, weight)
 
-# s: 0, u: 1, x: 2, v: 3, y: 4
+'''# s: 0, u: 1, x: 2, v: 3, y: 4
 g.addEdge(0, 1, 10)
 g.addEdge(0, 2, 5)
 g.addEdge(2, 1, 3)
@@ -107,6 +123,6 @@ g.addEdge(2, 4, 2)
 g.addEdge(4, 0, 7)
 g.addEdge(2, 3, 9)
 g.addEdge(3, 4, 4)
-g.addEdge(4, 3, 6)
+g.addEdge(4, 3, 6)'''
 
-print(dijkstra(g, 0))
+print(dijkstra(g, 0)[1])
