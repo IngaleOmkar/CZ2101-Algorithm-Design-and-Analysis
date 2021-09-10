@@ -44,6 +44,3 @@ class Graph():
 
     def getAdjMatrix(self):
         return self.adjMatrix
-
-    def getGraph(self):
-        return self.adjList

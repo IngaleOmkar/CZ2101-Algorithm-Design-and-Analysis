@@ -95,22 +95,3 @@ def dijkstra(g, source_index):
             adj_node = adj_node.next
     end = time.time()
     return d, end-start
-
-# Defines the number of "nodes" in the graph
-vertices = 100000
-# Defines the number of "connections" in the graph
-edges = 1000000
-# Creates the graph
-g = Graph(vertices)
-# Creates a new dictionary to ensure no same edge with different weights 
-added = {i:[] for i in range(vertices)}
-# Populates the graph with randomly generated connections
-for i in range(edges):
-    start_edge = random.randint(0,vertices-1)
-    end_edge = random.randint(0,vertices-1)
-    weight = random.randint(0,50)
-    if((start_edge != end_edge) and (end_edge not in added[start_edge])):
-        added[start_edge].append(end_edge)
-        g.addEdge(start_edge, end_edge, weight)
-
-print(dijkstra(g, 0))
