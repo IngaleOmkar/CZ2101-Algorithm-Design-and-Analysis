@@ -42,7 +42,7 @@ class HeapPriorityQueue():
         newItem = self.queue[len(self.queue)-1].weight
         pos = len(self.queue) - 1
         while(pos > 0):
-            parent_pos = (pos-1) >> 1 #//2
+            parent_pos = (pos-1) >> 1 # Divide by 2
             parent = self.queue[parent_pos].weight
             if(newItem < parent):
                 self.queue[pos] = self.queue[parent_pos]
@@ -113,16 +113,4 @@ for i in range(edges):
         added[start_edge].append(end_edge)
         g.addEdge(start_edge, end_edge, weight)
 
-'''# s: 0, u: 1, x: 2, v: 3, y: 4
-g.addEdge(0, 1, 10)
-g.addEdge(0, 2, 5)
-g.addEdge(2, 1, 3)
-g.addEdge(1, 2, 2)
-g.addEdge(1, 3, 1)
-g.addEdge(2, 4, 2)
-g.addEdge(4, 0, 7)
-g.addEdge(2, 3, 9)
-g.addEdge(3, 4, 4)
-g.addEdge(4, 3, 6)'''
-
-print(dijkstra(g, 0)[1])
+print(dijkstra(g, 0))

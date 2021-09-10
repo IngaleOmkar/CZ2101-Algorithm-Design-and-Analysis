@@ -25,8 +25,6 @@ def dijkstra(G, src):
     end = time.time()
     return d, end-start
 
-        
-
 if __name__ == "__main__":
     # Create a graph of 5 vertices
     g = ds.Graph(5)
