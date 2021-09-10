@@ -14,24 +14,30 @@ class PriorityQueue():
     def isEmpty(self):
         return len(self.queue) == 0
     
-    def enqueue(self, d, p):
+    def enqueue(self, v, w):
         # Create new node
-        newNode = Node(d, p)
-        self.queue.append(newNode)
+        newNode = Node(v, w)
+
+        # Empty queue, insert at head
+        if (self.isEmpty()):
+            self.queue.insert(0, newNode)
+        else:
+            # Find correct position & insert
+            if (w <= self.queue[0].weight):
+                self.queue.insert(0, newNode)
+            else:
+                for i in range(len(self.queue)):
+                    if (w < self.queue[i].weight):
+                        self.queue.insert(i, newNode)
+                        return
+
+                self.queue.insert(i+1, newNode)
 
     def dequeue(self):
         if (not self.isEmpty()):
-            min = 0
-            for i in range(len(self.queue)):
-                if(self.queue[i].priority < self.queue[min].priority):
-                    min = i
-            return self.queue.pop(min)
+            return self.queue.pop(0)
         else:
             return None # Queue empty, dequeue failed
-
-    def printQueue(self):
-        for i in range(len(self.queue)):
-            print(self.queue[i].priority)
 
 class Graph():
     def __init__(self, V):
