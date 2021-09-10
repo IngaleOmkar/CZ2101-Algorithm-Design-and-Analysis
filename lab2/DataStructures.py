@@ -23,7 +23,7 @@ class PriorityQueue():
             self.queue.insert(0, newNode)
         else:
             # Find correct position & insert
-            if (w <= self.queue[0].priority):
+            if (p <= self.queue[0].priority):
                 self.queue.insert(0, newNode)
             else:
                 for i in range(len(self.queue)):
