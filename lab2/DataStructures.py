@@ -14,20 +14,20 @@ class PriorityQueue():
     def isEmpty(self):
         return len(self.queue) == 0
     
-    def enqueue(self, v, w):
+    def enqueue(self, d, p):
         # Create new node
-        newNode = Node(v, w)
+        newNode = Node(d, p)
 
         # Empty queue, insert at head
         if (self.isEmpty()):
             self.queue.insert(0, newNode)
         else:
             # Find correct position & insert
-            if (w <= self.queue[0].weight):
+            if (w <= self.queue[0].priority):
                 self.queue.insert(0, newNode)
             else:
                 for i in range(len(self.queue)):
-                    if (w < self.queue[i].weight):
+                    if (w < self.queue[i].priority):
                         self.queue.insert(i, newNode)
                         return
 
