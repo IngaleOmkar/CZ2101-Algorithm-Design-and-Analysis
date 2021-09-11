@@ -13,16 +13,16 @@ def writeResults(fileName, iter, d):
             writer.writerow([d["Number of Vertices"][i], d["Time Q1"][i], d["Time Q2"][i]])
 
 if __name__ == "__main__":
-    ITERATIONS = 600
+    ITERATIONS = 600 # Max vertices it will go to
 
     fileName = 'Lab2_Results.csv'
 
     d = {"Number of Vertices": [], "Time Q1": [], "Time Q2": []}
 
     try:
-        for i in range(300, ITERATIONS+1):
+        for i in range(300, ITERATIONS+1): # Number of iterations
             G = ds.Graph(i)
-            # G.randomCompleteGraph() # For trying worst case
+            # G.randomCompleteGraph() # For trying worst case (uncomment to use)
             G.randomGraph() # For average case
             
             d["Number of Vertices"].append(i)
