@@ -1,5 +1,4 @@
 import csv
-from os import write
 import DataStructures as ds
 import dijkstra
 from time import time
