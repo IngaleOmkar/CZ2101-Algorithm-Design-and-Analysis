@@ -39,7 +39,7 @@ if __name__ == "__main__":
             d["Time Q1"].append(q1_elapsedTime)
 
             start = time()
-            dijkstra.dijkstra_pqueue(G, 0)
+            dijkstra.dijkstra_hqueue(G, 0)
             end = time()
             q2_elapsedTime = (end - start) * 10**3 # in milliseconds
             d["Time Q2"].append(q2_elapsedTime)
