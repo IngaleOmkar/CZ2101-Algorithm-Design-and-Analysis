@@ -17,7 +17,7 @@ def writeResults(fileName, iter, d):
             return
 
 if __name__ == "__main__":
-    ITERATIONS = 1000
+    ITERATIONS = 500
     START = 1 # START must at least be 1 
 
     fileName = 'Lab2_Results_1.csv' # File name for the csv (change the name if want to save to a different file otherwise it will override)
