@@ -1,5 +1,6 @@
 import DataStructures as ds
 
+# For Q1
 def dijkstra_pqueue(G, src):
     d = [float('inf')] * G.V
     pi = [None] * G.V
@@ -25,6 +26,7 @@ def dijkstra_pqueue(G, src):
 
     return d
 
+# For Q2
 def dijkstra_hqueue(G, src):
     d = [float('inf')] * len(G.adjList)
     pi = [None] * len(G.adjList)
