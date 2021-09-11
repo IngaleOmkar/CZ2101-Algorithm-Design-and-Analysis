@@ -22,7 +22,8 @@ if __name__ == "__main__":
     try:
         for i in range(300, ITERATIONS+1):
             G = ds.Graph(i)
-            G.randomCompleteGraph()
+            # G.randomCompleteGraph() # For trying worst case
+            G.randomGraph() # For average case
             
             d["Number of Vertices"].append(i)
 
