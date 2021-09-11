@@ -4,6 +4,7 @@ import DataStructures as ds
 import dijkstra
 from time import time
 
+# Function for writing the results into a CSV file
 def writeResults(fileName, iter, d):
     with open(fileName, 'w', newline='') as f:
         writer = csv.writer(f)
@@ -13,17 +14,17 @@ def writeResults(fileName, iter, d):
             writer.writerow([d["Number of Vertices"][i], d["Time Q1"][i], d["Time Q2"][i]])
 
 if __name__ == "__main__":
-    ITERATIONS = 600 # Max vertices it will go to
+    ITERATIONS = 1000
 
-    fileName = 'Lab2_Results.csv'
+    fileName = 'Lab2_Results_2.csv' # File name for the csv (change the name if want to save to a different file otherwise it will override)
 
     d = {"Number of Vertices": [], "Time Q1": [], "Time Q2": []}
 
     try:
-        for i in range(300, ITERATIONS+1): # Number of iterations
+        for i in range(600, ITERATIONS+1):
             G = ds.Graph(i)
-            # G.randomCompleteGraph() # For trying worst case (uncomment to use)
-            G.randomGraph() # For average case
+            # G.randomGraph()
+            G.randomCompleteGraph()
             
             d["Number of Vertices"].append(i)
 
@@ -41,10 +42,11 @@ if __name__ == "__main__":
 
             print(f'{i}: \tQ1 Time: {round(q1_elapsedTime, 5)} \tQ2 Time: {round(q2_elapsedTime, 5)}')
 
-    except KeyboardInterrupt:
-            writeResults(fileName, ITERATIONS, d)
+    except (KeyboardInterrupt):
             print("Keyboard Interrupt... Saving current results...")
+            writeResults(fileName, ITERATIONS, d)
             print('Completed!')
 
     writeResults(fileName, ITERATIONS, d)
+        
     print('Completed!')
