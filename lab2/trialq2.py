@@ -35,9 +35,13 @@ class PriorityQueue():
     def __init__(self):
         self.heap = []
 
-    def heappush(self, item):
+    def isEmpty(self):
+        return len(self.heap) == 0
+    
+    def heappush(self, index, weight):
         """Push item onto heap, maintaining the heap invariant."""
-        self.heap.append(item)
+        newNode = Node(index, weight)
+        self.heap.append(newNode)
         self._siftdown(0, len(self.heap)-1)
 
     def heappop(self):
@@ -57,7 +61,7 @@ class PriorityQueue():
         while pos > startpos:
             parentpos = (pos - 1) >> 1
             parent = self.heap[parentpos]
-            if newitem < parent:
+            if newitem.weight < parent.weight:
                 self.heap[pos] = parent
                 pos = parentpos
                 continue
@@ -73,7 +77,7 @@ class PriorityQueue():
         while childpos < endpos:
             # Set childpos to index of smaller child.
             rightpos = childpos + 1
-            if rightpos < endpos and not self.heap[childpos] < self.heap[rightpos]:
+            if rightpos < endpos and not self.heap[childpos].weight < self.heap[rightpos].weight:
                 childpos = rightpos
             # Move the smaller child up.
             self.heap[pos] = self.heap[childpos]
@@ -136,15 +140,15 @@ def dijkstra(g, source_index):
     s = [False] * len(g.vertices)
 
     # Creating the priority queue 
-    priority_queue = HeapPriorityQueue()
+    priority_queue = PriorityQueue()
     # Setting distance for source index to 0
     d[source_index] = 0
 
     # Pushing source index with weight 0 into the queue
-    priority_queue.push(source_index,0)
+    priority_queue.heappush(source_index,0)
 
     while(not priority_queue.isEmpty()):
-        current = priority_queue.pop()
+        current = priority_queue.heappop()
         s[current.index] = True
         adj_node = g.vertices[current.index]
         # traversing the linked list
@@ -152,7 +156,20 @@ def dijkstra(g, source_index):
             if(not s[adj_node.index] and d[adj_node.index] > d[current.index] + adj_node.weight):
                 d[adj_node.index] = d[current.index] + adj_node.weight
                 pi[adj_node.index] = current.index
-                priority_queue.push(adj_node.index, d[adj_node.index])
+                priority_queue.heappush(adj_node.index, d[adj_node.index])
             adj_node = adj_node.next
     end = time.time()
     return d, end-start
+
+g = Graph(5)
+g.addEdge(0,1,10)
+g.addEdge(0,2,5)
+g.addEdge(1,2,2)
+g.addEdge(2,1,3)
+g.addEdge(1,3,1)
+g.addEdge(2,3,9)
+g.addEdge(2,4,2)
+g.addEdge(3,4,4)
+g.addEdge(4,3,6)
+
+print(dijkstra(g,0))
