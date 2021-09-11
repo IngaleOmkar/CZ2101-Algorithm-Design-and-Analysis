@@ -9,19 +9,23 @@ def writeResults(fileName, iter, d):
         writer = csv.writer(f)
         writer.writerow(["Number of Vertices", "Time Q1 (ms)", "Time Q2 (ms)"])
 
-        for i in range(0, iter):
-            writer.writerow([d["Number of Vertices"][i], d["Time Q1"][i], d["Time Q2"][i]])
+        try:
+            for i in range(0, iter):
+                writer.writerow([d["Number of Vertices"][i], d["Time Q1"][i], d["Time Q2"][i]])
+        except IndexError:
+            print("Index error... Saved current results")
+            return
 
 if __name__ == "__main__":
     ITERATIONS = 1000
     START = 1 # START must at least be 1 
 
-    fileName = 'Lab2_Results_2.csv' # File name for the csv (change the name if want to save to a different file otherwise it will override)
+    fileName = 'Lab2_Results_3.csv' # File name for the csv (change the name if want to save to a different file otherwise it will override)
 
     d = {"Number of Vertices": [], "Time Q1": [], "Time Q2": []}
 
-    try:
-        for i in range(START, ITERATIONS+1):
+    for i in range(START, ITERATIONS+1):
+        try:
             G = ds.Graph(i)
             # G.randomGraph() # Generate random graph (for average case) -> uncomment to use
             G.randomCompleteGraph() # Generate random complete graph (for worst case) -> uncomment to use
@@ -42,10 +46,9 @@ if __name__ == "__main__":
 
             print(f'{i}: \tQ1 Time: {round(q1_elapsedTime, 5)} \tQ2 Time: {round(q2_elapsedTime, 5)}')
 
-    except (KeyboardInterrupt):
-            print("Keyboard Interrupt... Saving current results...")
-            writeResults(fileName, ITERATIONS, d)
-            print('Completed!')
+        except (KeyboardInterrupt):
+                print("Keyboard Interrupt...")
+                break
 
     writeResults(fileName, ITERATIONS, d)
         
