@@ -14,29 +14,30 @@ def writeResults(fileName, iter, d):
 
 if __name__ == "__main__":
     ITERATIONS = 1000
+    START = 1 # START must at least be 1 
 
     fileName = 'Lab2_Results_2.csv' # File name for the csv (change the name if want to save to a different file otherwise it will override)
 
     d = {"Number of Vertices": [], "Time Q1": [], "Time Q2": []}
 
     try:
-        for i in range(600, ITERATIONS+1):
+        for i in range(START, ITERATIONS+1):
             G = ds.Graph(i)
-            # G.randomGraph()
-            G.randomCompleteGraph()
+            # G.randomGraph() # Generate random graph (for average case) -> uncomment to use
+            G.randomCompleteGraph() # Generate random complete graph (for worst case) -> uncomment to use
             
             d["Number of Vertices"].append(i)
 
             start = time()
             dijkstra.dijkstra_pqueue(G, 0)
             end = time()
-            q1_elapsedTime = (end - start) * 10**3 # milliseconds
+            q1_elapsedTime = (end - start) * 10**3 # in milliseconds
             d["Time Q1"].append(q1_elapsedTime)
 
             start = time()
             dijkstra.dijkstra_pqueue(G, 0)
             end = time()
-            q2_elapsedTime = (end - start) * 10**3 # milliseconds
+            q2_elapsedTime = (end - start) * 10**3 # in milliseconds
             d["Time Q2"].append(q2_elapsedTime)
 
             print(f'{i}: \tQ1 Time: {round(q1_elapsedTime, 5)} \tQ2 Time: {round(q2_elapsedTime, 5)}')
