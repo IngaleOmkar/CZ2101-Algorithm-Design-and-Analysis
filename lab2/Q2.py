@@ -23,6 +23,12 @@ class Graph():
         newNode = Node(index_to, weight)
         newNode.add_connection(self.vertices[index_from])
         self.vertices[index_from] = newNode
+    
+    def printAdjList(self, index):
+        node = self.vertices[index]
+        while(node != None):
+            print(node.index,end='->')
+            node = node.next
 
 class HeapPriorityQueue():
     # Required functions: createHeap, heapPush, heapPop
