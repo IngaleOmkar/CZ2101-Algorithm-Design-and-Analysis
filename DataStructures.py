@@ -55,7 +55,7 @@ class Graph():
                     while dest in added or dest == src:
                         dest = randint(0, self.V - 1)
                     added.append(dest)
-                    self.addEdge(src, dest, randint(1, 50))
+                    self.addEdge(src, dest, randint(1, 100))
                 added = []
 
     # Create a random complete graph
@@ -66,6 +66,16 @@ class Graph():
             for edge in range(edges+1):
                 if (edge != src):
                     self.addEdge(src, edge, randint(1, 100))
+
+    # Create a linear graph (basically a LinkedList)
+    # Best case graph?
+    def randomLinearGraph(self):
+        if self.V == 1:
+            self.addEdge(0, 0, 0)
+            return
+
+        for src in range(self.V - 1):
+            self.addEdge(src, src+1, randint(1, 100))
                     
     def getAdjMatrix(self):
         return self.adjMatrix
@@ -135,13 +145,27 @@ class HeapPriorityQueue():
             toreturn = self.queue[0]
             self.queue[0] = self.queue[len(self.queue) - 1]
             self.queue.pop(len(self.queue) - 1)
-            self.buildHeap()
+            self.heapify(0)
             return toreturn
     
     def push(self, index, weight):
-        self.queue.append(ListNode(index, weight))
-        self.buildHeap()
+        self.queue.append(ListNode(index, weight))# adding to last position
+        self.queue.insert(0, None)# making heap start from 1
+        self.move_up(len(self.queue)-1)# 
+        del self.queue[0]
     
+    def move_up(self, i):
+        """
+        Moves the value up in the tree to maintain the heap property.
+        """
+        # While the element is not the root or the left element
+        while(i // 2 > 0): # get to root, 0
+            # If the element is less than its parent swap the elements
+            if self.queue[i].weight < self.queue[i// 2].weight:
+                self.queue[i], self.queue[i// 2] = self.queue[i// 2], self.queue[i]
+            # Move the index to the parent to keep the properties
+            i = i // 2
+
     def heapify(self, i):
         smallest = i; # Initialize smallest as root
         # The following is different because the array is 0 indexed
@@ -149,28 +173,18 @@ class HeapPriorityQueue():
         r = 2 * i + 2; # right = 2*i + 2
     
         # If left child is smaller than root
-        if l < len(self.queue) and self.queue[l].weight < self.queue[smallest].weight:
+        if(l < len(self.queue) and self.queue[l].weight < self.queue[smallest].weight):
             smallest = l;
     
         # If right child is smaller than smallest so far
-        if r < len(self.queue) and self.queue[r].weight < self.queue[smallest].weight:
+        if(r < len(self.queue) and self.queue[r].weight < self.queue[smallest].weight):
             smallest = r;
     
         # If smallest is not root
-        if smallest != i:
+        if(smallest != i):
             self.queue[i], self.queue[smallest] = self.queue[smallest], self.queue[i];
             # Recursively heapify the affected sub-tree
             self.heapify(smallest)
-  
-    # Function to build a Min-Heap from the given array
-    def buildHeap(self):
-        # Index of last non-leaf node
-        startIdx = len(self.queue) // 2 - 1;
-        # Perform reverse level order traversal
-        # from last non-leaf node and heapify
-        # each node
-        for i in range(startIdx, -1, -1):
-            self.heapify(i);  
         
     def isEmpty(self):
         return len(self.queue) == 0
